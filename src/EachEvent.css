@@ -1,0 +1,24 @@
+.event-container {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    border-radius: 20px;
+    background: black;
+    opacity: .6;
+    color: white;
+    margin: 5px;
+    padding: 4px;
+    width: 30vh;
+}
+
+.event-container hr{
+    width: 25vh;
+    border: 0;
+    border-top: 1px solid white;
+    margin: 1em;
+
+}
+
+.event-container a{
+    color: white;
+}

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './BandComponent.css';
 import AddBand from './AddBand.js';
+import {Link} from 'react-router-dom';
+import animation from './animation.js';
 
 export default class BandComponent extends Component {
     constructor (props) {
@@ -17,19 +19,16 @@ export default class BandComponent extends Component {
 
         
     }
+
     componentWillMount(){
         let {name, id, thumb_url} = this.props.band;
         this.setState({bandName: name, bandID: id, thumbURL: thumb_url});
         console.log(this.state.bandName);
     }
-
-
-    
-
-
-   
-
-   
+    componentWillAppear(cb) {
+        console.log('willenter')
+        animation.show(this.bandComp, cb)
+    }
 
     render() {
         const {name,
@@ -39,7 +38,7 @@ export default class BandComponent extends Component {
                     
 
         return (
-            <div>
+            <div ref={ref => this.bandComp = ref} >
                 <div className="backdrop-style">
                 <div className="band-popup" name="" >
                     <div className="popup-name"><h1> {name} </h1></div>

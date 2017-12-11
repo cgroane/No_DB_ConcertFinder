@@ -6,6 +6,10 @@ import BandComponent from './BandComponent.js'
 import AddBand from './AddBand.js';
 import BandCard from './BandCard.js';
 import SearchEvents from './SearchEvents.js';
+import {Link, Switch, Route } from 'react-router-dom';
+import ReactTransitionGroup from 'react-addons-transition-group';
+
+
 
 class App extends Component {
   constructor() {
@@ -38,9 +42,9 @@ class App extends Component {
   searchArtist(params) {
    
     console.log(params);
-    axios.get(`http://localhost:3000/api/bands/${params}`).then(response => 
-    
-    this.setState({band: response.data}));
+    axios.get(`http://localhost:3000/api/bands/${params}`).then(response => {
+    console.log(response)
+    this.setState({band: response.data})});
     
   }
 
@@ -80,7 +84,9 @@ class App extends Component {
           if(searchClicked) {
             renderBand = <div >
               
-                                <BandComponent band={this.state.band}/>
+              
+                                  <BandComponent band={this.state.band}/>
+                                 
                                 <AddBand handleClick={this.addToBandArray} band={this.state.band} />
                               
 
@@ -100,10 +106,13 @@ class App extends Component {
                         </div>
                 }
 
-          let showEventSearchComponent = null;
+          let showEventSearchComponent = "";
 
           if(this.state.bandArray.length) {
-            showEventSearchComponent = <SearchEvents bandsToSearch={this.state.bandArray} clicked={this.state.searchedConcerts} />
+            showEventSearchComponent = <div className="event-finder-container" >
+                                          <Link to="/find-events"><button className="search-events-btn">Find Concerts</button></Link>
+                                      </div>
+            
           }
 
     return (
@@ -121,15 +130,33 @@ class App extends Component {
           </div>
         </div>
         
-        <div className="band-popup-container">{renderBand}</div>
+        <Switch>
+          <Route exact path="/" render={ () => {
+            return ( 
+            <div>
+            <ReactTransitionGroup><div className="band-popup-container">{renderBand}</div></ReactTransitionGroup>
+            
+            <div className="contain-bands-grid">
+              
+                 <ReactTransitionGroup>{showBands}</ReactTransitionGroup>
+                
+
+            </div>
+            {showEventSearchComponent}
+            </div>)
+          }}  />
+          <Route path="/find-events" render={() => {
+            return (
+              
+            <SearchEvents bandsToSearch={this.state.bandArray} clicked={this.state.searchedConcerts} />
+
+            )
+          } } />
+          </Switch>
+          
         
-        <div className="contain-bands-grid">
-          
-             {showBands}
-          
-        </div>
-        {showEventSearchComponent}
       </div>
+      
     )
   }
 }

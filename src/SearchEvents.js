@@ -24,14 +24,14 @@ export default class SearchEvents extends Component {
             searchClicked: false
         }
         
-        this.handleClick = this.handleClick.bind(this);
+        // this.handleClick = this.handleClick.bind(this);
 
     }
 
    
    
    
-    handleClick() {
+    componentWillMount() {
     console.log(this.props.bandsToSearch);
         for (var i = 0; i <this.props.bandsToSearch.length; i++) {
             console.log('test for Loop')
@@ -48,19 +48,17 @@ export default class SearchEvents extends Component {
 
     render() {
 
-        let listEvents = null;
+        let listEvents = <p></p>;
         if(this.state.searchClicked ) {
             
             listEvents = <EventListing events={this.state.eventsArray}/>
+            console.log(listEvents)
         }
 
 
         return (
             <div>
-                <div className='event-finder-container' >
-                    <button className="search-events-btn" onClick={this.handleClick}>Find Concerts</button>
-                    
-                </div>
+                  
                 <div className="display-events" >{listEvents}</div>
             </div>
         )

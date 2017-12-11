@@ -8,7 +8,11 @@ app.use(bodyParser.json());
 app.use(cors())
 const bandCtrl = require('./controllers/bands_controller')
 // bandsintown api url: https://rest.bandsintown.com/artists/{artistname}
-// app.use('/', express.static(__dirname + '/../public'));
+app.use('/', express.static(__dirname + '/../public'));
+
+//after dirname put path to whatever the build folder is
+//__dirname is the filepath of the index.js -- /server/index.js
+//build path relative to this file should be '/../build'
 
 app.get('/api/bands/:name', (req, res, next) => {
     console.log(req.params.name)

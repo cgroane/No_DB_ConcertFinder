@@ -153,4 +153,9 @@ button:focus {
   flex-wrap: wrap;
 
 }
+.event-finder-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
 
